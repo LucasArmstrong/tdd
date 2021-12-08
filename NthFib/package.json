@@ -1,0 +1,11 @@
+{
+  "name": "nth-fib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "NthFib.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC"
+}
