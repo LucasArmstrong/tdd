@@ -25,8 +25,7 @@ function DeRomanize (romanString) {
             const double = romans[romans.length-2] + romans[romans.length-1];
             if (double in romanKeys) {
                 num += romanKeys[double];
-                romans.pop();
-                romans.pop();
+                romans.splice(-2);
             } else {
                 num += romanKeys[romans.pop()];
             }
