@@ -59,34 +59,33 @@ class LinkedList {
     }
 
     reverseList() {
-        this.reverse(this.head);
-        let tmp = this.head;
+        let node = this.head;
         this.head = this.tail;
-        this.tail = tmp;
+        this.tail = node;
+        let previous = null;
+      
+        while(node) {
+          let next = node.next;
+          node.next = previous;
+          node.prev = next;
+          previous = node;
+          node = next;
+        }
     }
 
-
-    // reverse (head) {
-    //     let node = head,
-    //         previous, 
-    //         tmp;
-    //     while (node) {
-    //         tmp = node.next;
-    //         node.next = previous;
-    //         previous = node;
-    //         node = tmp;
-    //     }
-    //     return previous;
-    // }
-
-    reverse (head) {
-        if (!head || !head.next) {
-            return head;
+    removeDuplicates() {
+        let values = {};
+        let current = this.head;
+        while (current) {
+            if (!values[current.value]) {
+                values[current.value] = true;
+                current = current.next;
+            } else {
+                let tmp = current;
+                current = current.next;
+                this.removeNode(tmp);
+            }
         }
-        let tmp = this.reverse(head.next);
-        head.next.next = head;
-        head.next = null;
-        return tmp;
     }
 
     toValueArray () {
