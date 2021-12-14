@@ -1,7 +1,8 @@
 const fibs = {};
+// starting N=1 with FO
 function NthFib(n) {
-    if (n <= 1) {
-        return n;
+    if (n <= 2) {
+        return n - 1;
     }
 
     if (fibs[n]) {
