@@ -1,0 +1,11 @@
+{
+  "name": "caesarcipher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "CaesarCipher.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC"
+}
