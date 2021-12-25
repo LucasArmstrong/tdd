@@ -1,0 +1,14 @@
+{
+  "name": "merkletrees",
+  "version": "1.0.0",
+  "description": "",
+  "main": "MerkleTree.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^4.1.1"
+  }
+}
