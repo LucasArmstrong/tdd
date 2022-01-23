@@ -138,8 +138,39 @@ describe ('Constructs a merkle tree', () => {
         let hash_1_2_3_4_5_5_5_5 = tree1_2_3_4_5_5_5_5.createHash(tree1_2_3_4.root + tree5_5_5_5.root);
         expect(hash_1_2_3_4_5_5_5_5).toBe(tree1_2_3_4_5_5_5_5.root);
 
-        // proof
+        // proof for 1,2,3,4,5
         let tree1_2_3_4_5 = new MerkleTree([1,2,3,4,5]);
         expect(tree1_2_3_4_5.root).toBe(tree1_2_3_4_5_5_5_5.root);
+
+        let treeA = new MerkleTree(['A']);
+        expect(treeA.root)
+            .toBe('559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd');
+
+        let treeB = new MerkleTree(['B']);
+        expect(treeB.root)
+            .toBe('df7e70e5021544f4834bbee64a9e3789febc4be81470df629cad6ddb03320a5c');
+
+        let treeA_B = new MerkleTree(['A', 'B']);
+        expect(treeA_B.root)
+            .toBe('b30ab174f7459cdd40a3acdf15d0c9444fec2adcfb9d579aa154c084885edd0a');
+
+        let hash_A_B = treeA_B.createHash(treeA.root + treeB.root);
+        expect(hash_A_B).toBe(treeA_B.root);
+
+        let treeC = new MerkleTree(['C']);
+        expect(treeC.root)
+            .toBe('6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d');
+
+        let treeD = new MerkleTree(['D']);
+        expect(treeD.root)
+            .toBe('3f39d5c348e5b79d06e842c114e6cc571583bbf44e4b0ebfda1a01ec05745d43');
+
+        let treeC_D = new MerkleTree(['C', 'D']);
+        let hash_C_D = treeC_D.createHash(treeC.root + treeD.root);
+        expect(hash_C_D).toBe(treeC_D.root);
+
+        let treeA_B_C_D = new MerkleTree(['A', 'B', 'C', 'D']);
+        let hashA_B_C_D = treeA_B_C_D.createHash(treeA_B.root + treeC_D.root);
+        expect(hashA_B_C_D).toBe(treeA_B_C_D.root);
     });
 })
