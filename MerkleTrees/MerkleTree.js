@@ -9,10 +9,11 @@ class MerkleTree {
     constructor(values = [], type = 'SHA256') {
         this.type = type;
         this.buildTree(values);
-        console.log('hash records', this.hashRecords);
+        //console.log('hash records', this.hashRecords);
     }
 
     createHash(data) {
+        //console.log('making hash', data);
         return CryptoJS[this.type](data.toString()).toString();
     }
 
