@@ -126,29 +126,17 @@ class LinkedList {
             return false;
         }
         let slow = this.head; // 1 hop per iteration
-        let fast = this.head; // 2 hops per iteration
+        let fast = this.head.next; // 2 hops per iteration
 
-        while (true) {
-            if (slow.next) {
-                slow = slow.next;
-            } else {
-                return false;
-            }
-
-            if (fast.next) {
-                fast = fast.next.next;
-            } else {
-                return false;
-            }
-
-            if (!fast || !slow) {
-                return false;
-            }
-    
+        while (fast && fast.next && slow) {
             if (fast === slow) {
                 return fast;
             }
+            fast = fast.next.next;
+            slow = slow.next;
         }
+        
+        return false;
     }
 }
 
