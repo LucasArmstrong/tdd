@@ -1,19 +1,22 @@
 class ListNode {
+    static ID_COUNTER = 0;
+    id = 0;
     prev = null;
     next = null;
     value = null;
 
     constructor (value) {
         this.value = value;
+        this.id = ListNode.ID_COUNTER++;
     }
 }
 
 class LinkedList {
-
     head = null;
     tail = null;
 
     constructor (valueArray) {
+        ListNode.ID_COUNTER = 0;
         for (let value of valueArray) {
             this.newNodeFromValue(value);
         }
@@ -59,6 +62,11 @@ class LinkedList {
     }
 
     reverseList() {
+        const hastCycleNode = this.hasCycle();
+        if (hastCycleNode) {
+            throw new CycleError(hastCycleNode);
+        }
+
         let node = this.head;
         this.head = this.tail;
         this.tail = node;
@@ -74,6 +82,11 @@ class LinkedList {
     }
 
     removeDuplicates() {
+        const hastCycleNode = this.hasCycle();
+        if (hastCycleNode) {
+            throw new CycleError(hastCycleNode);
+        }
+
         let values = {};
         let current = this.head;
         while (current) {
@@ -89,6 +102,11 @@ class LinkedList {
     }
 
     toValueArray () {
+        const hastCycleNode = this.hasCycle();
+        if (hastCycleNode) {
+            throw new CycleError(hastCycleNode);
+        }
+
         let values = [];
         let current = this.head;
         while (current) {
@@ -97,6 +115,50 @@ class LinkedList {
         }
         return values;
     }
+
+    /*
+    * hasCycle - determine if this linked list has a cycle
+    *
+    * @returns false | node
+    */
+    hasCycle () {
+        if (!this.head) {
+            return false;
+        }
+        let slow = this.head; // 1 hop per iteration
+        let fast = this.head; // 2 hops per iteration
+
+        while (true) {
+            if (slow.next) {
+                slow = slow.next;
+            } else {
+                return false;
+            }
+
+            if (fast.next) {
+                fast = fast.next.next;
+            } else {
+                return false;
+            }
+
+            if (!fast || !slow) {
+                return false;
+            }
+    
+            if (fast === slow) {
+                return fast;
+            }
+        }
+    }
+}
+
+class CycleError extends Error {
+    constructor(node) {
+        super();
+        this.message = `List cycle detected at node id=${node.id}, value=${node.value}`;
+        console.log(this.message);
+    }
 }
 
 module.exports.LinkedList = LinkedList;
+module.exports.CycleError = CycleError;
